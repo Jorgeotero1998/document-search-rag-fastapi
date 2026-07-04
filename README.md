@@ -1,20 +1,38 @@
-# Document Search (FTS + RAG) — ES/EN
+# OteroDocSearch
 
-## Español
+**EN**: Postgres FTS + RAG (citations)  
+**ES**: Búsqueda FTS + RAG (con citas)
 
-Servicio de búsqueda documental con:
+## Live demo / Demo online
+- **Web**: https://document-search-rag-fastapi.vercel.app
+- **API docs**: https://document-search-rag-fastapi-api.onrender.com/docs
+- **API health**: https://document-search-rag-fastapi-api.onrender.com/api/v1/health
 
-- Postgres **Full-Text Search** (GIN index)
-- Endpoint de “preguntar” (**RAG**) que cita docs \([1], [2]...\) usando IA opcional
+## Stack
+- FastAPI
+- PostgreSQL
+- FTS
+- RAG
+- AI (Groq)
 
-### Endpoints
-- `/api/v1/docs` (POST)
-- `/api/v1/docs/search?q=...` (GET)
-- `/api/v1/docs/ask` (POST, requiere IA habilitada)
+## Local setup (Docker)
 
----
+`ash
+cp .env.example .env
+docker compose up --build
+`
 
-## English
+## Credentials (demo)
 
-Document search service with Postgres FTS and optional RAG endpoint with citations.
+**EN**: Default demo admin is seeded from ADMIN_EMAIL / ADMIN_PASSWORD.  
+**ES**: El admin demo se crea desde ADMIN_EMAIL / ADMIN_PASSWORD.
 
+## Deploy
+
+**EN**:
+- Backend: Render (Blueprint via ender.yaml)
+- Frontend: Vercel (Root Directory: web)
+
+**ES**:
+- Backend: Render (Blueprint con ender.yaml)
+- Frontend: Vercel (Root Directory: web)

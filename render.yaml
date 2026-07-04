@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: backend-portfolio-template-api
+    name: document-search-rag-fastapi-api
     env: docker
     plan: free
     autoDeploy: true
@@ -13,14 +13,18 @@ services:
         generateValue: true
       - key: RUN_MIGRATIONS_ON_STARTUP
         value: "true"
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: ADMIN_EMAIL
+        value: "admin@example.com"
+      - key: ADMIN_PASSWORD
+        value: "change-me-admin"
       - key: DATABASE_URL
         fromDatabase:
-          name: backend-portfolio-template-db
+          name: document-search-rag-fastapi-db
           property: connectionString
-      - key: LLM_ENABLED
-        value: "false"
 
 databases:
-  - name: backend-portfolio-template-db
+  - name: document-search-rag-fastapi-db
     plan: free
     databaseName: app
