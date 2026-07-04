@@ -14,7 +14,7 @@
       - key: RUN_MIGRATIONS_ON_STARTUP
         value: "true"
       - key: CORS_ORIGINS
-        value: "*"
+        value: '["*"]'
       - key: ADMIN_EMAIL
         value: "admin@example.com"
       - key: ADMIN_PASSWORD
