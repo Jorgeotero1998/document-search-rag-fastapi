@@ -3,6 +3,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from starlette.requests import Request
@@ -45,6 +46,16 @@ app = FastAPI(
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
 )
+
+if settings.cors_origins:
+    allow_all = len(settings.cors_origins) == 1 and settings.cors_origins[0] == "*"
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"] if allow_all else settings.cors_origins,
+        allow_credentials=False if allow_all else True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 app.include_router(api_router_v1, prefix="/api/v1")
 

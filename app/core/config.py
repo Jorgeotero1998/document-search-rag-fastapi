@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pydantic import AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -30,6 +31,21 @@ class Settings(BaseSettings):
     llm_api_key: str = ""
     llm_base_url: AnyUrl | None = None
     llm_model: str = "llama-3.1-8b-instant"
+
+    # CORS (comma-separated origins)
+    cors_origins: list[str] = []
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def _parse_cors_origins(cls, v):
+        if v is None:
+            return []
+        if isinstance(v, list):
+            return [str(x).strip() for x in v if str(x).strip()]
+        s = str(v).strip()
+        if not s:
+            return []
+        return [x.strip() for x in s.split(",") if x.strip()]
 
 
 settings = Settings()  # type: ignore[call-arg]
