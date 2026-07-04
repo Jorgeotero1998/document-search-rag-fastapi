@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: document-search-rag-fastapi-api
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: docker/api/Dockerfile
+    preDeployCommand: alembic upgrade head
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: document-search-rag-fastapi-db
+          property: connectionString
+      - key: LLM_ENABLED
+        value: "false"
+
+databases:
+  - name: document-search-rag-fastapi-db
+    plan: free
+    databaseName: app
+    user: postgres
